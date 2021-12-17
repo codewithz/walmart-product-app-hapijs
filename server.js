@@ -7,6 +7,14 @@ const init = async () => {
         port: 3000
     });
 
+    server.route({
+        method: 'GET',
+        path: '/',
+        handler: async (request, h) => {
+            return '<h1>Hello Walmart API Dashboard</h1>';
+        }
+    })
+
     await server.start();
     console.log(`Server started on : ${server.info.uri}`)
 

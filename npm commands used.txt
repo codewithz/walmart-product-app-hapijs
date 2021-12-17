@@ -1,3 +1,7 @@
 For Installing hapi js 
 
 npm i @hapi/hapi
+
+Install Nodemon : Catching the changes in real time without any restarts
+
+npm i nodemon
