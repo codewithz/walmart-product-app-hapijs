@@ -5,6 +5,7 @@ Mongoose.connect("mongodb://localhost/walmart");
 console.log('Connected to Mongo Server...');
 
 const ProductModel = Mongoose.model("products", {
+    _id: String,
     productId: Number,
     name: String,
     price: Number,
@@ -107,6 +108,41 @@ const init = async () => {
         }
 
     });
+
+    server.route({
+        method: 'PUT',
+        path: '/products/{id}',
+        handler: async (request, h) => {
+            try {
+                const result = await ProductModel.
+                    updateOne({ productId: parseInt(request.params.id) }, request.payload)
+                return h.response(result);
+            }
+            catch (error) {
+                console.log(error)
+                return h.response(error).code(500);
+            }
+        }
+
+    });
+    server.route({
+        method: 'DELETE',
+        path: '/products/{id}',
+        handler: async (request, h) => {
+            try {
+                const result = await ProductModel.
+                    deleteOne({ productId: parseInt(request.params.id) });
+                return h.response(result);
+            }
+            catch (error) {
+                console.log(error)
+                return h.response(error).code(500);
+            }
+        }
+
+    });
+
+
 
 
     server.route({
