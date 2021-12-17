@@ -13,3 +13,7 @@ npm install hapi-geo-locate
 Static Files:
 
 npm install @hapi/inert
+
+Install mongoose 
+
+npm i mongoose
