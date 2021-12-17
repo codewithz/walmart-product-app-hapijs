@@ -7,18 +7,24 @@ const init = async () => {
         port: 3000
     });
 
-    await server.register({
-        plugin: require('hapi-geo-locate'),
-        options: {
-            enabledByDefault: false
+    await server.register([
+        {
+            plugin: require('hapi-geo-locate'),
+            options: {
+                enabledByDefault: false
+            }
+        },
+        {
+            plugin: require('@hapi/inert')
+
         }
-    });
+    ]);
 
     server.route({
         method: 'GET',
         path: '/',
         handler: async (request, h) => {
-            return '<h1>Hello Walmart API Dashboard</h1>';
+            return h.file('./welcome.html')
         }
     });
 

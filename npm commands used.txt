@@ -9,3 +9,7 @@ npm i nodemon
 Install Hapi- Geo-Locate plugin
 
 npm install hapi-geo-locate
+
+Static Files:
+
+npm install @hapi/inert
