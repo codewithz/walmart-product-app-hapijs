@@ -41,7 +41,72 @@ const init = async () => {
             }
         }
 
-    })
+    });
+
+    server.route({
+        method: 'GET',
+        path: '/products',
+        handler: async (request, h) => {
+            try {
+                const products = await ProductModel.find().exec();
+                return h.response(products);
+            }
+            catch (error) {
+                return h.response(error).code(500);
+            }
+        }
+
+    });
+
+    server.route({
+        method: 'GET',
+        path: '/products/{id}',
+        handler: async (request, h) => {
+            try {
+                const product = await ProductModel.findById(request.params.id).exec();
+                return h.response(product);
+            }
+            catch (error) {
+                return h.response(error).code(500);
+            }
+        }
+
+    });
+
+    server.route({
+        method: 'GET',
+        path: '/products/productId/{productId}',
+        handler: async (request, h) => {
+            try {
+                const product = await ProductModel
+                    .where()
+                    .find({ productId: parseInt(request.params.productId) })
+                    .exec();
+                return h.response(product);
+            }
+            catch (error) {
+                return h.response(error).code(500);
+            }
+        }
+
+    });
+    server.route({
+        method: 'GET',
+        path: '/products/category/{category}',
+        handler: async (request, h) => {
+            try {
+                const product = await ProductModel
+                    .where()
+                    .find({ category: request.params.category })
+                    .exec();
+                return h.response(product);
+            }
+            catch (error) {
+                return h.response(error).code(500);
+            }
+        }
+
+    });
 
 
     server.route({
