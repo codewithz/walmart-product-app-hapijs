@@ -10,7 +10,7 @@ const init = async () => {
     await server.register({
         plugin: require('hapi-geo-locate'),
         options: {
-            enabledByDefault: true
+            enabledByDefault: false
         }
     });
 
@@ -35,7 +35,11 @@ const init = async () => {
         method: 'GET',
         path: '/location',
         handler: async (request, h) => {
-            return request.location;
+            if (request.location) {
+                return request.location;
+            } else {
+                return '<h5>Location is disabled</h5>';
+            }
         }
     })
 
