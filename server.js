@@ -1,4 +1,16 @@
 const Hapi = require('@hapi/hapi');
+const Mongoose = require('mongoose');
+
+Mongoose.connect("mongodb://localhost/walmart");
+console.log('Connected to Mongo Server...');
+
+const ProductModel = Mongoose.model("products", {
+    productId: Number,
+    name: String,
+    price: Number,
+    description: String,
+    category: String
+});
 
 const init = async () => {
 
@@ -6,19 +18,6 @@ const init = async () => {
         host: 'localhost',
         port: 3000
     });
-
-    await server.register([
-        {
-            plugin: require('hapi-geo-locate'),
-            options: {
-                enabledByDefault: false
-            }
-        },
-        {
-            plugin: require('@hapi/inert')
-
-        }
-    ]);
 
     server.route({
         method: 'GET',
@@ -29,25 +28,21 @@ const init = async () => {
     });
 
     server.route({
-        method: 'GET',
-        path: '/users',
+        method: 'POST',
+        path: '/products',
         handler: async (request, h) => {
-            return h.redirect('/');
-        }
-
-    });
-
-    server.route({
-        method: 'GET',
-        path: '/location',
-        handler: async (request, h) => {
-            if (request.location) {
-                return request.location;
-            } else {
-                return '<h5>Location is disabled</h5>';
+            try {
+                const product = new ProductModel(request.payload);
+                const result = await product.save();
+                return h.response(result);
+            }
+            catch (error) {
+                return h.response(error).code(500);
             }
         }
+
     })
+
 
     server.route({
         method: 'GET',
