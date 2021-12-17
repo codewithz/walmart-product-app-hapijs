@@ -13,6 +13,15 @@ const init = async () => {
         handler: async (request, h) => {
             return '<h1>Hello Walmart API Dashboard</h1>';
         }
+    });
+
+    server.route({
+        method: 'GET',
+        path: '/users',
+        handler: async (request, h) => {
+            return '<h1>Hello Walmart User</h1>';
+        }
+
     })
 
     await server.start();
