@@ -1,0 +1,3 @@
+For Installing hapi js 
+
+npm i @hapi/hapi
