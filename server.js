@@ -17,9 +17,14 @@ const init = async () => {
 
     server.route({
         method: 'GET',
-        path: '/users/{user}',
+        path: '/users/{user?}',
         handler: async (request, h) => {
-            return `<h1>Hello Walmart User: ${request.params.user}</h1>`;
+            if (request.params.user) {
+                return `<h1>Hello Walmart User: ${request.params.user}</h1>`;
+            }
+            else {
+                return '<h1> Hello Stranger!! </h1>';
+            }
         }
 
     })
