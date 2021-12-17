@@ -7,6 +7,13 @@ const init = async () => {
         port: 3000
     });
 
+    await server.register({
+        plugin: require('hapi-geo-locate'),
+        options: {
+            enabledByDefault: true
+        }
+    });
+
     server.route({
         method: 'GET',
         path: '/',
@@ -23,6 +30,14 @@ const init = async () => {
         }
 
     });
+
+    server.route({
+        method: 'GET',
+        path: '/location',
+        handler: async (request, h) => {
+            return request.location;
+        }
+    })
 
     server.route({
         method: 'GET',

@@ -5,3 +5,7 @@ npm i @hapi/hapi
 Install Nodemon : Catching the changes in real time without any restarts
 
 npm i nodemon
+
+Install Hapi- Geo-Locate plugin
+
+npm install hapi-geo-locate
