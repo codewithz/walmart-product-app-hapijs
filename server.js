@@ -19,10 +19,18 @@ const init = async () => {
         method: 'GET',
         path: '/users',
         handler: async (request, h) => {
-            return `<h1> ${request.query.firstname} ${request.query.lastname} </h1>`;
+            return h.redirect('/');
         }
 
-    })
+    });
+
+    server.route({
+        method: 'GET',
+        path: '/{any*}',
+        handler: async (request, h) => {
+            return '<h2>404!! Seems you are in a wrong location</h2>';
+        }
+    });
 
     await server.start();
     console.log(`Server started on : ${server.info.uri}`)
