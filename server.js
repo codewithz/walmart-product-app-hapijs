@@ -17,9 +17,9 @@ const init = async () => {
 
     server.route({
         method: 'GET',
-        path: '/users',
+        path: '/users/{user}',
         handler: async (request, h) => {
-            return '<h1>Hello Walmart User</h1>';
+            return `<h1>Hello Walmart User: ${request.params.user}</h1>`;
         }
 
     })
